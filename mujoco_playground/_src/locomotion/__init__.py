@@ -24,23 +24,34 @@ from mujoco import mjx
 from mujoco_playground._src import mjx_env
 from mujoco_playground._src.locomotion.apollo import joystick as apollo_joystick
 from mujoco_playground._src.locomotion.barkour import joystick as barkour_joystick
-from mujoco_playground._src.locomotion.berkeley_humanoid import joystick as berkeley_humanoid_joystick
-from mujoco_playground._src.locomotion.berkeley_humanoid import randomize as berkeley_humanoid_randomize
+from mujoco_playground._src.locomotion.berkeley_humanoid import (
+  joystick as berkeley_humanoid_joystick,
+)
+from mujoco_playground._src.locomotion.berkeley_humanoid import (
+  randomize as berkeley_humanoid_randomize,
+)
 from mujoco_playground._src.locomotion.g1 import joystick as g1_joystick
 from mujoco_playground._src.locomotion.g1 import randomize as g1_randomize
 from mujoco_playground._src.locomotion.go1 import getup as go1_getup
 from mujoco_playground._src.locomotion.go1 import handstand as go1_handstand
 from mujoco_playground._src.locomotion.go1 import joystick as go1_joystick
 from mujoco_playground._src.locomotion.go1 import randomize as go1_randomize
-from mujoco_playground._src.locomotion.h1 import inplace_gait_tracking as h1_inplace_gait_tracking
-from mujoco_playground._src.locomotion.h1 import joystick_gait_tracking as h1_joystick_gait_tracking
+from mujoco_playground._src.locomotion.h1 import (
+  inplace_gait_tracking as h1_inplace_gait_tracking,
+)
+from mujoco_playground._src.locomotion.h1 import (
+  joystick_gait_tracking as h1_joystick_gait_tracking,
+)
+from mujoco_playground._src.locomotion.kbot import joystick as kbot_joystick
+from mujoco_playground._src.locomotion.kbot import randomize as kbot_randomize
 from mujoco_playground._src.locomotion.op3 import joystick as op3_joystick
 from mujoco_playground._src.locomotion.spot import getup as spot_getup
 from mujoco_playground._src.locomotion.spot import joystick as spot_joystick
-from mujoco_playground._src.locomotion.spot import joystick_gait_tracking as spot_joystick_gait_tracking
+from mujoco_playground._src.locomotion.spot import (
+  joystick_gait_tracking as spot_joystick_gait_tracking,
+)
 from mujoco_playground._src.locomotion.t1 import joystick as t1_joystick
 from mujoco_playground._src.locomotion.t1 import randomize as t1_randomize
-
 
 mjx_env.ensure_menagerie_exists()  # Ensure menagerie exists when module is imported.
 
@@ -80,6 +91,12 @@ _envs = {
     "SpotJoystickGaitTracking": (
         spot_joystick_gait_tracking.JoystickGaitTracking
     ),
+    "KbotJoystickFlatTerrain": functools.partial(
+        kbot_joystick.Joystick, task="flat_terrain"
+    ),
+    "KbotJoystickRoughTerrain": functools.partial(
+        kbot_joystick.Joystick, task="rough_terrain"
+    ),
     "T1JoystickFlatTerrain": functools.partial(
         t1_joystick.Joystick, task="flat_terrain"
     ),
@@ -99,6 +116,8 @@ _cfgs = {
     ),
     "G1JoystickFlatTerrain": g1_joystick.default_config,
     "G1JoystickRoughTerrain": g1_joystick.default_config,
+    "KbotJoystickFlatTerrain": kbot_joystick.default_config,
+    "KbotJoystickRoughTerrain": kbot_joystick.default_config,
     "Go1JoystickFlatTerrain": go1_joystick.default_config,
     "Go1JoystickRoughTerrain": go1_joystick.default_config,
     "Go1Getup": go1_getup.default_config,
@@ -128,6 +147,8 @@ _randomizer = {
     "Go1Getup": go1_randomize.domain_randomize,
     "Go1Handstand": go1_randomize.domain_randomize,
     "Go1Footstand": go1_randomize.domain_randomize,
+    "KbotJoystickFlatTerrain": kbot_randomize.domain_randomize,
+    "KbotJoystickRoughTerrain": kbot_randomize.domain_randomize,
     "T1JoystickFlatTerrain": t1_randomize.domain_randomize,
     "T1JoystickRoughTerrain": t1_randomize.domain_randomize,
 }
